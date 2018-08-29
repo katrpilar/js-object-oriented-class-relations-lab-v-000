@@ -20,10 +20,10 @@ class Driver{
     store.drivers.push(this);
   }
   passengers(){
-    return store.trips.filter(pass => pass.driverId == this.id);
+    console.log(store.trips.filter(p => p.passengerId == this.id));
   }
   trips(){
-
+    return store.trips.filter(t => t.driverId == this.id);
   }
 }
 
@@ -31,22 +31,32 @@ class Driver{
 let tripIdCounter = 0;
 class Trip{
   constructor(driver, passenger){
-    this.driverId = driver.id;
-    this.passengerId = passenger.id;
-    this.id = ++tripIdCounter;
-    store.trips.push(this);
+    this.id = ++tripIdCounter
+    if(driver){
+      this.driverId = driver.id
+    }
+    if(passenger){
+      this.passengerId = passenger.id
+    }
+    store.trips.push(this)
 
   }
+
+  setDriver(driver){
+    this.driverId = driver.id
+  }
+  setPassenger(passenger){
+    this.passengerId = passenger.id
+  }
   driver(){
-    store.drivers.find(function(driver){
-      return driver.id == this.driverId;
+    return store.drivers.find(function(element){
+      return element.id == this.driverId;
     })
   }
 
   passenger(){
-    // return store.passengers.filter(element => tripId == this.id);
-    return store.passengers.find(function(passenger){
-      return passenger.id == this.passengerId;
+    return store.passengers.find(function(element){
+      return element.id == this.passengerId;
     })
   }
 }
@@ -58,6 +68,14 @@ class Passenger{
     this.id = ++passengerIdCounter;
     store.passengers.push(this);
 
+  }
+
+  trips(){
+    console.log(store.trips.filter(t => t.passengerId == this.id));
+  }
+
+  drivers(){
+    return store.trips.filter(t => t.driverId == this.id);
   }
 
 }
