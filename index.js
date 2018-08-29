@@ -1,5 +1,5 @@
-let driverIdCounter = 0;
-let store = [{drivers:[], passengers: [],trips:[]}];
+let driverIdCounter = 0
+let store = {drivers:[], passengers: [],trips:[]}
 
 //{
 // [drivers:
@@ -17,19 +17,13 @@ class Driver{
   constructor(name){
     this.name = name;
     this.id = ++driverIdCounter;
-    // this.trips = [];
+    store.drivers.push(this);
   }
-  store.drivers.push(this);
-  // trips(){
-  //   this
-    // return store.drivers.filter(driv => {
-    //   return item.userId === this.id
-    // })
-    // return store.find(driverId => this.id);
-  // }
   passengers(){
     return store.trips.filter(pass => pass.driverId == this.id);
-    // Needs to be filter not find
+  }
+  trips(){
+
   }
 }
 
@@ -40,19 +34,19 @@ class Trip{
     this.driverId = driver.id;
     this.passengerId = passenger.id;
     this.id = ++tripIdCounter;
-  }
-  store.trips.push(this);
+    store.trips.push(this);
 
+  }
   driver(){
-    store.drivers.find(function(element){
-      return element.id == this.driverId;
+    store.drivers.find(function(driver){
+      return driver.id == this.driverId;
     })
   }
 
   passenger(){
     // return store.passengers.filter(element => tripId == this.id);
-    return store.passengers.find(function(element){
-      return element.id == this.passengerId;
+    return store.passengers.find(function(passenger){
+      return passenger.id == this.passengerId;
     })
   }
 }
@@ -62,7 +56,8 @@ class Passenger{
   constructor(name){
     this.name = name;
     this.id = ++passengerIdCounter;
+    store.passengers.push(this);
+
   }
-  store.passengers.push(this);
 
 }
