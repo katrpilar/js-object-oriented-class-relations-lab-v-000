@@ -1,10 +1,23 @@
 let driverIdCounter = 0;
 let store = [{drivers:[], passengers: [],trips:[]}];
+
+//{
+// [drivers:
+//   {id: 1, name: katrina},
+//   {id: 2, name: kat}],
+// [passengers:
+//   {id: 1, name: david}],
+// [trips:
+//  {id: 1, tripId: 2, passengerId: 1 }]
+// }
+
+// + has many trips, and has many passengers through trips.
+
 class Driver{
   constructor(name){
     this.name = name;
     this.id = ++driverIdCounter;
-    this.trips = [];
+    // this.trips = [];
   }
   store.drivers.push(this);
   // trips(){
@@ -15,29 +28,41 @@ class Driver{
     // return store.find(driverId => this.id);
   // }
   passengers(){
-    return store.find(passengers: driverId => this.id)
+    return store.trips.filter(pass => pass.driverId == this.id);
     // Needs to be filter not find
   }
 }
 
+//
 let tripIdCounter = 0;
 class Trip{
   constructor(driver, passenger){
-    this.driver = driver;
-    this.passenger = passenger;
+    this.driverId = driver.id;
+    this.passengerId = passenger.id;
     this.id = ++tripIdCounter;
-    this.driverId
-    this.passengerId
   }
   store.trips.push(this);
 
   driver(){
     store.drivers.find(function(element){
-      return this.driverId == id;
+      return element.id == this.driverId;
     })
   }
 
-  passengers(){
-    return store.passengers.filter(element => tripId == this.id);
+  passenger(){
+    // return store.passengers.filter(element => tripId == this.id);
+    return store.passengers.find(function(element){
+      return element.id == this.passengerId;
+    })
   }
+}
+
+let passengerIdCounter = 0;
+class Passenger{
+  constructor(name){
+    this.name = name;
+    this.id = ++passengerIdCounter;
+  }
+  store.passengers.push(this);
+
 }
