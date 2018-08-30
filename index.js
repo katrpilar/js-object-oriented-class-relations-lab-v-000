@@ -51,11 +51,11 @@ class Trip{
   // }
   //
 
-  // driver(){
-  //   return store.drivers.find(function(element){
-  //     return element.id === this.driverId;
-  //   });
-  // }
+  driver(){
+    return store.drivers.find(function(element){
+      return element.id === this.driverId;
+    }.bind(this));
+  }
 
   // driver(){
   //   return store.drivers.find(driver => driver.id === this.driverId);
