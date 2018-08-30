@@ -19,11 +19,13 @@ class Driver{
     this.id = ++driverIdCounter;
     store.drivers.push(this);
   }
-  passengers(){
-    return store.trips.filter(p => p.driverId === this.id);
-  }
+
   trips(){
     return store.trips.filter(t => t.driverId === this.id);
+  }
+
+  passengers() {
+    return this.trips().map(trip => trip.passenger());
   }
 }
 
@@ -51,15 +53,15 @@ class Trip{
   // }
   //
 
-  driver(){
-    return store.drivers.find(function(element){
-      return element.id === this.driverId;
-    }.bind(this));
-  }
-
   // driver(){
-  //   return store.drivers.find(driver => driver.id === this.driverId);
+  //   return store.drivers.find(function(element){
+  //     return element.id === this.driverId;
+  //   }.bind(this));
   // }
+
+  driver(){
+    return store.drivers.find(driver => driver.id === this.driverId);
+  }
 
   // passenger(){
   //   return store.passengers.find(function(element){
@@ -88,7 +90,7 @@ class Passenger{
   }
 
   drivers(){
-    return store.trips.filter(t => t.driverId === this.id);
+    return this.trips().map(trip => trip.driver());
   }
 
 }
