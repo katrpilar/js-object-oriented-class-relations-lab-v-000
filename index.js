@@ -1,5 +1,5 @@
 let driverIdCounter = 0
-let store = {drivers:[], passengers: [],trips:[]}
+let store = {drivers:[], passengers:[],trips:[]}
 
 //{
 // [drivers:
@@ -20,10 +20,10 @@ class Driver{
     store.drivers.push(this);
   }
   passengers(){
-    console.log(store.trips.filter(p => p.passengerId == this.id));
+    return store.trips.filter(p => p.driverId === this.id);
   }
   trips(){
-    return store.trips.filter(t => t.driverId == this.id);
+    return store.trips.filter(t => t.driverId === this.id);
   }
 }
 
@@ -32,33 +32,46 @@ let tripIdCounter = 0;
 class Trip{
   constructor(driver, passenger){
     this.id = ++tripIdCounter
-    if(driver){
-      this.driverId = driver.id
-    }
-    if(passenger){
-      this.passengerId = passenger.id
-    }
+    this.driverId = driver.id
+    this.passengerId = passenger.id
     store.trips.push(this)
 
   }
 
-  setDriver(driver){
-    this.driverId = driver.id
-  }
-  setPassenger(passenger){
-    this.passengerId = passenger.id
-  }
-  driver(){
-    return store.drivers.find(function(element){
-      return element.id == this.driverId;
-    })
-  }
+  // driver() {
+  // return store.drivers.find(driver => {
+  //   return driver.id === this.driverId; //return statement
+  // });
+  //  }
+
+  // driver(){
+  //   return store.drivers.find(function(element){
+  //     return element.id === this.driverId;
+  //   })
+  // }
+  //
+
+  // driver(){
+  //   return store.drivers.find(function(element){
+  //     return element.id === this.driverId;
+  //   });
+  // }
+
+  // driver(){
+  //   return store.drivers.find(driver => driver.id === this.driverId);
+  // }
+
+  // passenger(){
+  //   return store.passengers.find(function(element){
+  //     return element.id === this.passengerId;
+  //   })
+  // }
 
   passenger(){
-    return store.passengers.find(function(element){
-      return element.id == this.passengerId;
-    })
+    return store.passengers.find(passenger => passenger.id === this.passengerId);
   }
+
+
 }
 
 let passengerIdCounter = 0;
@@ -71,11 +84,11 @@ class Passenger{
   }
 
   trips(){
-    console.log(store.trips.filter(t => t.passengerId == this.id));
+    return store.trips.filter(t => t.passengerId === this.id);
   }
 
   drivers(){
-    return store.trips.filter(t => t.driverId == this.id);
+    return store.trips.filter(t => t.driverId === this.id);
   }
 
 }
